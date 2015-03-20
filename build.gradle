@@ -1,0 +1,21 @@
+apply plugin:'java'
+
+
+repositories {
+	jcenter()
+}
+
+
+dependencies {
+	 compile 'org.fxmisc.richtext:richtextfx:0.6.3'
+}
+
+
+task run (type: Exec) {
+	executable "sh"
+	def cl = sourceSets.main.runtimeClasspath.getAsPath()
+	def JAVA_HOME = System.getProperty('java.home')
+	def jjs = "${JAVA_HOME}/bin/jjs"
+	print("${jjs} -cp ${cl} main.js")
+	args "-c", "${jjs} -cp ${cl} -fx main.js"
+}
